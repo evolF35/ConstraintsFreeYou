@@ -2,57 +2,66 @@
 
 import React, {useState} from 'react'
 import {ethers}  from 'ethers'
+import deployABI from '../ABI/DeployABI.json'
+
 
 const MetamaskJS = () => {
 
-    const [provider, setProvider] = useState(null)
-    const [signer, setSigner] = useState(null)
-    const [address, setAddress] = useState(null)
+  let contractAddress = '0xFf408125bf10064a4518f9aDa10b0E2124FAA807';
 
-    const connectMetamask = async () => {
-        if (window.ethereum) {
-            try {
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const signer = provider.getSigner();
-                const address = await signer.getAddress();
-                setProvider(provider);
-                setSigner(signer);
-                setAddress(address);
-                console.log("Connected to Metamask");
-            } catch (err) {
-                console.log("Failed to connect to Metamask");
-            }
-        } else {
-            console.log("Metamask not installed");
-        }
-    }
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [defaultAccount, setDefaultAccount] = useState(null);
+  const [connButtonText, setConnButtonText] = useState('Connect Wallet');
 
-    const disconnectMetamask = async () => {
-        if (window.ethereum) {
-            try {
-                await window.ethereum.request({ method: 'wallet_requestPermissions', params: [{ eth_accounts: {} }] });
-                setProvider(null);
-                setSigner(null);
-                setAddress(null);
-                console.log("Disconnected from Metamask");
-            } catch (err) {
-                console.log("Failed to disconnect from Metamask");
-            }
-        } else {
-            console.log("Metamask not installed");
-        }
-    }
+  const [currentContractVal, setCurrentContractVal] = useState(null);
 
-    return (
-        <div>
-            <button onClick={connectMetamask}>Connect</button>
-            <button onClick={disconnectMetamask}>Disconnect</button>
-        </div>
-    )
+  const [provider, setProvider] = useState(null);
+  const [signer, setSigner] = useState(null);
+  const [contract, setContract] = useState(null);
+
+  const connectWalletHandler = () => {
+      if (window.ethereum && window.ethereum.isMetaMask) {
+          window.ethereum.request({ method: 'eth_requestAccounts'})
+          .then(result => {
+              accountChangedHandler(result[0]);
+              setConnButtonText('Wallet Connected');
+          })
+          .catch(error => {
+              setErrorMessage(error.message);
+          
+          });
+
+      } else {
+          console.log('Need to install MetaMask');
+          setErrorMessage('Please install MetaMask browser extension to interact');
+      }
+  }
+  const accountChangedHandler = (newAccount) => {
+      setDefaultAccount(newAccount);
+      updateEthers();
+  }
+
+  const chainChangedHandler = () => {
+      window.location.reload();
+  }
+
+  window.ethereum.on('accountsChanged', accountChangedHandler);
+
+  window.ethereum.on('chainChanged', chainChangedHandler);
+
+  const updateEthers = () => {
+      let tempProvider = new ethers.providers.Web3Provider(window.ethereum);
+      setProvider(tempProvider);
+      let tempSigner = tempProvider.getSigner();
+      setSigner(tempSigner);
+      let tempContract = new ethers.Contract(contractAddress, deployABI, tempSigner);
+      setContract(tempContract);	
+  }
+
+  
 
 
-
-
+    
 }
 
 export default MetamaskJS
