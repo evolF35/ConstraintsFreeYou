@@ -22,3 +22,11 @@ input{
 table {
   max-width: fit-content;
 }
+
+.addressClick {
+  cursor: pointer;
+}
+
+.depositTable {
+  width: 70px;
+}

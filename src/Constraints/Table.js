@@ -128,8 +128,6 @@ function createData(modifiedTB) {
   let data = modifiedTB;
   if (!data.zTOTBAL) return null;
 
-  console.log(data);
-
   return {
     totalBalance: data.zTOTBAL,
     POSBalance: data.zPOSBal,
@@ -161,6 +159,31 @@ function createData(modifiedTB) {
 function Row(props) {
   let row = props;
   const [open, setOpen] = React.useState(false);
+
+  const [innerOpen, setInnerOpen] = useState(false);
+
+  const [showFullStringOracle, setShowFullStringOracle] = useState(-1);
+  const [showFullStringPOS, setShowFullStringPOS] = useState(-1);
+  const [showFullStringNEG, setShowFullStringNEG] = useState(-1);
+  const [showFullStringContract, setShowFullStringContract] = useState(-1);
+
+
+
+  const handleOracleClick = (index) => {
+    setShowFullStringOracle(index === showFullStringOracle ? -1 : index);
+  }
+  
+  const handlePOSClick = (index) => {
+    setShowFullStringPOS(index === showFullStringPOS ? -1 : index);
+  }
+  
+  const handleNEGClick = (index) => {
+    setShowFullStringNEG(index === showFullStringNEG ? -1 : index);
+  }
+
+  const handleContractClick = (index) => {
+    setShowFullStringContract(index === showFullStringContract ? -1 : index);
+  }
 
   if (!row) return null;
 
@@ -194,9 +217,7 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={20}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Pool Details
-              </Typography>
+
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
@@ -228,15 +249,17 @@ function Row(props) {
                 <TableBody>
 
                 <TableRow >
-                      <TableCell component="th" scope="row">{row.row.details[0].ContractAddress}</TableCell>
-                      <TableCell>{row.row.details[0].OracleAddress}</TableCell>
+                      <TableCell className='addressClick' component="th" scope="row" onClick={() => handleContractClick(0)}>{showFullStringContract === 0 ? row.row.details[0].ContractAddress : row.row.details[0].ContractAddress.substring(0, 6)}</TableCell>                      
+                      
+                      <TableCell className='addressClick' align="right" onClick={() => handleOracleClick(0)}>{showFullStringOracle === 0 ? row.row.details[0].OracleAddress : row.row.details[0].OracleAddress.substring(0, 6)}</TableCell>                      
                       <TableCell align="right">{row.row.details[0].Name}</TableCell>
                       <TableCell align="right">{row.row.details[0].Acronym}</TableCell>
                       <TableCell align="right">{row.row.details[0].DestructionDate}</TableCell>
-                      <TableCell align="right">{row.row.details[0].POSAddress}</TableCell>
-                      <TableCell align="right">{row.row.details[0].NEGAddress}</TableCell>
-                      <TableCell> <form className='deposit' onSubmit={(e) => depToPOS(e, row.row.details[0].ContractAddress.toString())}> <input  type="text" ></input> <button type="submit" >POS</button> </form> </TableCell>
-                      <TableCell> <form className='deposit' onSubmit={(e) => depToNEG(e, row.row.details[0].ContractAddress.toString())}> <input  type="text" ></input> <button type="submit" >NEG</button> </form> </TableCell>
+                      <TableCell className='addressClick' align="right" onClick={() => handlePOSClick(0)}>{showFullStringPOS === 0 ? row.row.details[0].POSAddress : row.row.details[0].POSAddress.substring(0, 6)}</TableCell>
+                      <TableCell className='addressClick' align="right" onClick={() => handleNEGClick(0)}>{showFullStringNEG === 0 ? row.row.details[0].NEGAddress : row.row.details[0].NEGAddress.substring(0, 6)}</TableCell>
+
+                      <TableCell> <form  onSubmit={(e) => depToPOS(e, row.row.details[0].ContractAddress.toString())}> <input className='depositTable' type="text" ></input> <button type="submit" >POS</button> </form> </TableCell>
+                      <TableCell> <form  onSubmit={(e) => depToNEG(e, row.row.details[0].ContractAddress.toString())}> <input className='depositTable' type="text" ></input> <button type="submit" >NEG</button> </form> </TableCell>
                       <TableCell> <form className='approvePOS' onSubmit={(e) => approvePOS(e, row.row.details[0].POSAddress.toString() ,row.row.details[0].ContractAddress.toString())}> <button type="submit" >Approve POS </button> </form> </TableCell>
                       <TableCell> <form className='approveNEG' onSubmit={(e) => approveNEG(e, row.row.details[0].NEGAddress.toString() ,row.row.details[0].ContractAddress.toString())}> <button type="submit" >Approve NEG </button> </form> </TableCell>
                       <TableCell> <form className='redeemPOS' onSubmit={(e) => callContractFunction(e, row.row.details[0].ContractAddress.toString(),'redeemwithPOS')}> <button type="submit" >Redeem POS </button> </form> </TableCell>
