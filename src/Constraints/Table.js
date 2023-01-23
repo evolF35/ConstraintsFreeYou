@@ -16,6 +16,107 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {ethers} from 'ethers'
 
+import deployABI from '../ABI/Deploy.json'
+import claimABI from '../ABI/Claim.json'
+import poolABI from '../ABI/Pool.json'
+
+
+let defaultAccount;
+
+
+const depToPOS = async (event,Addr1) => {
+    event.preventDefault();
+    let tempProvider2 = new ethers.providers.Web3Provider(window.ethereum);
+    let tempSigner2 = tempProvider2.getSigner();
+    let tempContract3 = new ethers.Contract(Addr1, poolABI, tempSigner2);
+    let stringNum = (event.target[0].value).toString();
+    let deus = ethers.utils.parseEther(stringNum);
+
+    await tempContract3.depositToPOS({value:deus});
+}
+
+	const depToNEG = async (event,Addr1) => {
+		event.preventDefault();
+		let tempProvider2 = new ethers.providers.Web3Provider(window.ethereum);
+		let tempSigner2 = tempProvider2.getSigner();
+		let tempContract3 = new ethers.Contract(Addr1, poolABI, tempSigner2);
+		let stringNum = (event.target[0].value).toString();
+		let deus = ethers.utils.parseEther(stringNum);
+
+		await tempContract3.depositToNEG({value:deus});
+	}
+
+	const approveNEG = async (event,Addr1,Addr2) => {
+		
+		event.preventDefault();
+		
+		let tempProvider2 = new ethers.providers.Web3Provider(window.ethereum);
+		let tempSigner2 = tempProvider2.getSigner();
+
+		let tempContract44 = new ethers.Contract(Addr1, claimABI, tempProvider2);
+		let tempContract3 = new ethers.Contract(Addr1, claimABI, tempSigner2);
+
+		let balance = await tempContract44.balanceOf(defaultAccount);
+
+		await tempContract3.approve(Addr2,balance);
+	}
+
+	const approvePOS = async (event,Addr1,Addr2) => {
+		
+		event.preventDefault();
+		
+		let tempProvider2 = new ethers.providers.Web3Provider(window.ethereum);
+		let tempSigner2 = tempProvider2.getSigner();
+
+		let tempContract44 = new ethers.Contract(Addr1, claimABI, tempProvider2);
+		let tempContract3 = new ethers.Contract(Addr1, claimABI, tempSigner2);
+
+
+		let balance = await tempContract44.balanceOf(defaultAccount);
+
+		await tempContract3.approve(Addr2,balance);
+	}
+	const callContractFunction = async (event, contractAddress, functionName) => {
+		event.preventDefault();
+		
+		let tempProvider = new ethers.providers.Web3Provider(window.ethereum);
+		let tempSigner = tempProvider.getSigner();
+		
+		let tempContract = new ethers.Contract(contractAddress, poolABI, tempSigner);
+	  
+		switch (functionName) {
+		  case 'redeemwithPOS':
+			await tempContract.redeemWithPOS();
+			break;
+		  case 'redeemwithNEG':
+			await tempContract.redeemWithNEG();
+			break;
+		  case 'withdrawNEG':
+			await tempContract.withdrawWithNEG();
+			break;
+		  case 'withdrawPOS':
+			await tempContract.withdrawWithPOS();
+			break;
+		  case 'settle':
+			await tempContract.settle();
+			break;
+		  case 'makeWithdrawable':
+			await tempContract.turnWithdrawOn();
+			break;
+		  case 'deZtruction':
+			await tempContract.turnToDust();
+			break;
+		  default:
+			throw new Error(`Invalid function name: ${functionName}`);
+		}
+	  }
+
+
+
+
+
+
+
 function createData(modifiedTB) {
 
   let data = modifiedTB;
@@ -51,7 +152,6 @@ function createData(modifiedTB) {
 
 function Row(props) {
   let row = props;
-  console.log(row);
   const [open, setOpen] = React.useState(false);
 
   if (!row) return null;
@@ -127,6 +227,17 @@ function Row(props) {
                       <TableCell align="right">{row.row.details[0].DestructionDate}</TableCell>
                       <TableCell align="right">{row.row.details[0].POSAddress}</TableCell>
                       <TableCell align="right">{row.row.details[0].NEGAddress}</TableCell>
+                      <TableCell> <form className='deposit' onSubmit={(e) => depToPOS(e, row.row.details[0].ContractAddress.toString())}> <input  type="text" ></input> <button type="submit" >POS</button> </form> </TableCell>
+                      <TableCell> <form className='deposit' onSubmit={(e) => depToNEG(e, row.row.details[0].ContractAddress.toString())}> <input  type="text" ></input> <button type="submit" >NEG</button> </form> </TableCell>
+                      <TableCell> <form className='approvePOS' onSubmit={(e) => approvePOS(e, row.row.details[0].POSAddress.toString() ,row.row.details[0].ContractAddress.toString())}> <button type="submit" >Approve POS </button> </form> </TableCell>
+                      <TableCell> <form className='approveNEG' onSubmit={(e) => approveNEG(e, row.row.details[0].NEGAddress.toString() ,row.row.details[0].ContractAddress.toString())}> <button type="submit" >Approve NEG </button> </form> </TableCell>
+                      <TableCell> <form className='redeemPOS' onSubmit={(e) => callContractFunction(e, row.row.details[0].ContractAddress.toString(),'redeemwithPOS')}> <button type="submit" >Redeem POS </button> </form> </TableCell>
+                      <TableCell> <form className='redeemNEG' onSubmit={(e) => callContractFunction(e, row.row.details[0].ContractAddress.toString(),'redeemwithNEG')}> <button type="submit" >Redeem NEG </button> </form> </TableCell>
+                      <TableCell> <form className='withdrawPOS' onSubmit={(e) => callContractFunction(e, row.row.details[0].ContractAddress.toString(),'withdrawPOS')}> <button type="submit" >Withdraw POS </button> </form> </TableCell>
+                      <TableCell> <form className='withdrawNEG' onSubmit={(e) => callContractFunction(e, row.row.details[0].ContractAddress.toString(),'withdrawNEG')}> <button type="submit" >Withdraw NEG </button> </form> </TableCell>
+                      <TableCell> <form className='settle' onSubmit={(e) => callContractFunction(e, row.row.details[0].ContractAddress.toString(),'settle')}> <button type="submit" > Settle </button> </form> </TableCell>
+                      <TableCell> <form className='turnwithdrawon' onSubmit={(e) => callContractFunction(e, row.row.details[0].ContractAddress.toString(),'makeWithdrawable')}> <button type="submit" > TurnWithdrawOn </button> </form> </TableCell>
+                      <TableCell> <form className='SelfDestruct' onSubmit={(e) => callContractFunction(e, row.row.details[0].ContractAddress.toString(),'deZtruction')}> <button type="submit" > DESTRUCTION </button> </form></TableCell>
 
                   </TableRow>
 
@@ -173,7 +284,8 @@ Row.propTypes = {
 export default function CollapsibleTable(props) {
 
   let florins = props.rows;
-  //console.log(florins);
+  defaultAccount = props.defaultAccount;
+
 
   return (
     <TableContainer component={Paper}>

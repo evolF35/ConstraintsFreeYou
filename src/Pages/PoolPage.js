@@ -6,6 +6,10 @@ import poolABI from '../ABI/Pool.json'
 
 import CollapsibleTable from '../Constraints/Table'
 
+
+
+
+
 const PoolJS = () => {
 	let contractAddress = '0xFf408125bf10064a4518f9aDa10b0E2124FAA807';
 
@@ -269,6 +273,9 @@ for (let button of expandButtons) {
 			throw new Error(`Invalid function name: ${functionName}`);
 		}
 	  }
+
+
+
 	  
 	return (
 		<div>
@@ -284,13 +291,14 @@ for (let button of expandButtons) {
             <button onClick={getEvents}>Get Events</button>
 			{errorMessage}
 
-{ tb && <CollapsibleTable rows={tb}/> }
+{ tb && <CollapsibleTable rows={tb} defaultAccount={defaultAccount}/> }
 
 		</div>
 
 	);
 
 }
+
 
 export default PoolJS;
 
