@@ -1,6 +1,7 @@
 
 *{
   text-align: center;
+  font-size: large;
 }
 
 form label{
@@ -29,4 +30,16 @@ table {
 
 .depositTable {
   width: 70px;
+}
+
+button {
+  background-color: #0a1084; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4%;
 }

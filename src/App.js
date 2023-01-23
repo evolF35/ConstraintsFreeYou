@@ -4,6 +4,8 @@ import './App.css';
 
 import DeployPageJS from './Pages/DeployPage';
 import PoolPageJS from './Pages/PoolPage';
+import tinycolor from 'tinycolor2';
+
 
 function App() {
   const [activeComponent, setActiveComponent] = useState('DeployPageJS');
