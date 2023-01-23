@@ -231,18 +231,7 @@ function Row(props) {
 
                     <TableCell > Deposit To POS </TableCell>
                     <TableCell > Deposit To NEG </TableCell>
-                    <TableCell > Approve POS </TableCell>
-                    <TableCell > Approve NEG </TableCell>
 
-                    <TableCell > Redeem POS</TableCell>
-                    <TableCell > Redeem NEG </TableCell>
-
-                    <TableCell > Withdraw POS </TableCell>
-                    <TableCell > Withdraw NEG </TableCell>
-
-                    <TableCell > Settle </TableCell>
-                    <TableCell >  TurnWithdrawOn </TableCell>
-                    <TableCell >  DESTRUCTION </TableCell>
 
                   </TableRow>
                 </TableHead>
@@ -260,7 +249,12 @@ function Row(props) {
 
                       <TableCell> <form  onSubmit={(e) => depToPOS(e, row.row.details[0].ContractAddress.toString())}> <input className='depositTable' type="text" ></input> <button type="submit" >POS</button> </form> </TableCell>
                       <TableCell> <form  onSubmit={(e) => depToNEG(e, row.row.details[0].ContractAddress.toString())}> <input className='depositTable' type="text" ></input> <button type="submit" >NEG</button> </form> </TableCell>
-                      <TableCell> <form className='approvePOS' onSubmit={(e) => approvePOS(e, row.row.details[0].POSAddress.toString() ,row.row.details[0].ContractAddress.toString())}> <button type="submit" >Approve POS </button> </form> </TableCell>
+
+                  </TableRow>
+
+                  <TableRow >
+    
+                  <TableCell> <form className='approvePOS' onSubmit={(e) => approvePOS(e, row.row.details[0].POSAddress.toString() ,row.row.details[0].ContractAddress.toString())}> <button type="submit" >Approve POS </button> </form> </TableCell>
                       <TableCell> <form className='approveNEG' onSubmit={(e) => approveNEG(e, row.row.details[0].NEGAddress.toString() ,row.row.details[0].ContractAddress.toString())}> <button type="submit" >Approve NEG </button> </form> </TableCell>
                       <TableCell> <form className='redeemPOS' onSubmit={(e) => callContractFunction(e, row.row.details[0].ContractAddress.toString(),'redeemwithPOS')}> <button type="submit" >Redeem POS </button> </form> </TableCell>
                       <TableCell> <form className='redeemNEG' onSubmit={(e) => callContractFunction(e, row.row.details[0].ContractAddress.toString(),'redeemwithNEG')}> <button type="submit" >Redeem NEG </button> </form> </TableCell>
@@ -270,7 +264,7 @@ function Row(props) {
                       <TableCell> <form className='turnwithdrawon' onSubmit={(e) => callContractFunction(e, row.row.details[0].ContractAddress.toString(),'makeWithdrawable')}> <button type="submit" > TurnWithdrawOn </button> </form> </TableCell>
                       <TableCell> <form className='SelfDestruct' onSubmit={(e) => callContractFunction(e, row.row.details[0].ContractAddress.toString(),'deZtruction')}> <button type="submit" > DESTRUCTION </button> </form></TableCell>
 
-                  </TableRow>
+                    </TableRow>
 
                 </TableBody>
               </Table>
