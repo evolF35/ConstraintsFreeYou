@@ -1,5 +1,6 @@
 
 import * as React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -21,7 +22,10 @@ import claimABI from '../ABI/Claim.json'
 import poolABI from '../ABI/Pool.json'
 
 
+
 let defaultAccount;
+
+
 
 
 const depToPOS = async (event,Addr1) => {
@@ -117,10 +121,14 @@ const depToPOS = async (event,Addr1) => {
 
 
 
+
+
 function createData(modifiedTB) {
 
   let data = modifiedTB;
   if (!data.zTOTBAL) return null;
+
+  console.log(data);
 
   return {
     totalBalance: data.zTOTBAL,
@@ -138,7 +146,7 @@ function createData(modifiedTB) {
     details: [
       {
         ContractAddress: data.args[8],
-        OracleAddress: data.transactionHash,
+        OracleAddress: data.args[0],
         Name: data.args[6],
         Acronym: data.args[7],
         DestructionDate: data.args[9].toString(),
@@ -183,7 +191,7 @@ function Row(props) {
 
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={20}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">

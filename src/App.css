@@ -18,3 +18,7 @@ form input{
 input{
   font-size: large;
 }
+
+table {
+  max-width: fit-content;
+}
