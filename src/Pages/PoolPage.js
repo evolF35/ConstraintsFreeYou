@@ -7,7 +7,6 @@ import poolABI from '../ABI/Pool.json'
 import CollapsibleTable from '../Constraints/Table'
 
 
-
 const PoolJS = () => {
 	let contractAddress = '0xFf408125bf10064a4518f9aDa10b0E2124FAA807';
 
@@ -58,7 +57,6 @@ const PoolJS = () => {
 		setContract(tempContract);	
         console.log("contract set");
 	}
-
 
 	const [modifiedTb, setModifiedTb] = useState([]);
 	
@@ -202,11 +200,8 @@ for (let button of expandButtons) {
 { tb && <CollapsibleTable rows={tb} defaultAccount={defaultAccount}/> }
 
 		</div>
-
 	);
-
 }
-
 
 export default PoolJS;
 

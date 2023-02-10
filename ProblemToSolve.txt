@@ -1,0 +1,38 @@
+
+
+Settlement Price in Dollars - 
+    153378000000 should be 1,533.78000
+
+Settlement Date should be in day format -
+    1681872597 should be GMT: Wednesday, April 19, 2023 2:49:57 AM
+        Eventually show the Settlement Date in the user's time zone
+
+Decay Rate is not working
+    This is plainly not working 
+    probably because of Solidity code and unsigned ints 
+
+Change Name and Acronym to reflect actually 
+name and acronym of Claims
+    On website it shows tr for the name
+    but instead it should be tr-Over
+    and Acronym of 45 
+        should be (45-POS)
+    We probably need to get rid of the -Over and -POS 
+        or change the fronted to add this suff in the front end
+
+Double click to de - expand address 
+    clicking once to get full address it nice.
+        but it should be a double click to de expand. 
+
+Create scripts to create a lot of deploy contracts
+    We need to more data
+
+Sorting and Filtering of table
+    you should be able to filter by total balance, 
+        settlement date, settlement price, max ratio date, 
+        ...
+
+If an oracle address is known to be an ETH oracle 
+    you should have a logo that signifies the pool 
+    is an ETH oracle Pool
+
