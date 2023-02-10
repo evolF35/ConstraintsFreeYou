@@ -111,13 +111,6 @@ const depToPOS = async (event,Addr1) => {
 	  }
 
 
-
-
-
-
-
-
-
 function createData(modifiedTB) {
 
   let data = modifiedTB;
@@ -162,8 +155,6 @@ function Row(props) {
   const [showFullStringNEG, setShowFullStringNEG] = useState(-1);
   const [showFullStringContract, setShowFullStringContract] = useState(-1);
 
-
-
   const handleOracleClick = (index) => {
     setShowFullStringOracle(index === showFullStringOracle ? -1 : index);
   }
@@ -197,11 +188,11 @@ function Row(props) {
         <TableCell align="right">{row.row.totalBalance}</TableCell>
         <TableCell align="right">{row.row.POSBalance}</TableCell>
         <TableCell align="right">{row.row.NEGBalance}</TableCell>
-        <TableCell align="right">{row.row.SettlementPrice}</TableCell>
-        <TableCell align="right">{row.row.SettlementDate}</TableCell>
+        <TableCell align="right">{(parseFloat(row.row.SettlementPrice) / 100000000)}</TableCell>
+        <TableCell align="right">{new Date(row.row.SettlementDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
         <TableCell align="right">{row.row.DecayRate}</TableCell>
         <TableCell align="right">{row.row.MaxRatio}</TableCell>
-        <TableCell align="right">{row.row.MaxRatioDate}</TableCell>
+        <TableCell align="right">{new Date(row.row.MaxRatioDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
         <TableCell align="right">{row.row.PastSettlementDate}</TableCell>
         <TableCell align="right">{row.row.Condition}</TableCell>
         <TableCell align="right">{row.row.DiscountRate}</TableCell>
@@ -238,7 +229,7 @@ function Row(props) {
                       <TableCell className='addressClick' align="right" onClick={() => handleOracleClick(0)}>{showFullStringOracle === 0 ? row.row.details[0].OracleAddress : row.row.details[0].OracleAddress.substring(0, 6)}</TableCell>                      
                       <TableCell align="right">{row.row.details[0].Name}</TableCell>
                       <TableCell align="right">{row.row.details[0].Acronym}</TableCell>
-                      <TableCell align="right">{row.row.details[0].DestructionDate}</TableCell>
+                      <TableCell align="right">{new Date(row.row.details[0].DestructionDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
                       <TableCell className='addressClick' align="right" onClick={() => handlePOSClick(0)}>{showFullStringPOS === 0 ? row.row.details[0].POSAddress : row.row.details[0].POSAddress.substring(0, 6)}</TableCell>
                       <TableCell className='addressClick' align="right" onClick={() => handleNEGClick(0)}>{showFullStringNEG === 0 ? row.row.details[0].NEGAddress : row.row.details[0].NEGAddress.substring(0, 6)}</TableCell>
 
@@ -312,7 +303,7 @@ export default function CollapsibleTable(props) {
             <TableCell>Total Balance</TableCell>
             <TableCell align="right"> POS Balance </TableCell>
             <TableCell align="right"> NEG Balance </TableCell>
-            <TableCell align="right"> Settlement Price </TableCell>
+            <TableCell align="right"> Settlement Price $ </TableCell>
             <TableCell align="right"> Settlement Date </TableCell>
             <TableCell align="right"> Decay Rate </TableCell>
             <TableCell align="right"> Max Ratio </TableCell>
