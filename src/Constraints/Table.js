@@ -21,12 +21,7 @@ import deployABI from '../ABI/Deploy.json'
 import claimABI from '../ABI/Claim.json'
 import poolABI from '../ABI/Pool.json'
 
-
-
 let defaultAccount;
-
-
-
 
 const depToPOS = async (event,Addr1) => {
     event.preventDefault();
