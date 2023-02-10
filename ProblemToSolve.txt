@@ -1,9 +1,10 @@
 
 
-Settlement Price in Dollars - 
+Settlement Price in Dollars - Done
     153378000000 should be 1,533.78000
 
-Settlement Date should be in day format -
+
+Settlement Date should be in day format - Done
     1681872597 should be GMT: Wednesday, April 19, 2023 2:49:57 AM
         Eventually show the Settlement Date in the user's time zone
 
@@ -24,7 +25,7 @@ Double click to de - expand address
     clicking once to get full address it nice.
         but it should be a double click to de expand. 
 
-Create scripts to create a lot of deploy contracts
+Create scripts to create a lot of deploy contracts - Done
     We need to more data
 
 Sorting and Filtering of table

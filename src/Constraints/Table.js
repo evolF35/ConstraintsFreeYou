@@ -185,6 +185,7 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
+        <TableCell align="right"> ? </TableCell>
         <TableCell align="right">{row.row.totalBalance}</TableCell>
         <TableCell align="right">{row.row.POSBalance}</TableCell>
         <TableCell align="right">{row.row.NEGBalance}</TableCell>
@@ -232,7 +233,6 @@ function Row(props) {
                       <TableCell align="right">{new Date(row.row.details[0].DestructionDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
                       <TableCell className='addressClick' align="right" onClick={() => handlePOSClick(0)}>{showFullStringPOS === 0 ? row.row.details[0].POSAddress : row.row.details[0].POSAddress.substring(0, 6)}</TableCell>
                       <TableCell className='addressClick' align="right" onClick={() => handleNEGClick(0)}>{showFullStringNEG === 0 ? row.row.details[0].NEGAddress : row.row.details[0].NEGAddress.substring(0, 6)}</TableCell>
-
                       <TableCell> <form  onSubmit={(e) => depToPOS(e, row.row.details[0].ContractAddress.toString())}> <input className='depositTable' type="text" ></input> <button type="submit" >POS</button> </form> </TableCell>
                       <TableCell> <form  onSubmit={(e) => depToNEG(e, row.row.details[0].ContractAddress.toString())}> <input className='depositTable' type="text" ></input> <button type="submit" >NEG</button> </form> </TableCell>
 
@@ -300,6 +300,7 @@ export default function CollapsibleTable(props) {
         <TableHead>
           <TableRow>
             <TableCell />
+            <TableCell> Oracle Type </TableCell>
             <TableCell>Total Balance</TableCell>
             <TableCell align="right"> POS Balance </TableCell>
             <TableCell align="right"> NEG Balance </TableCell>
