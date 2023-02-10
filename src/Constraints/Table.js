@@ -238,8 +238,8 @@ function Row(props) {
                 <TableBody>
 
                 <TableRow >
+                  
                       <TableCell className='addressClick' component="th" scope="row" onClick={() => handleContractClick(0)}>{showFullStringContract === 0 ? row.row.details[0].ContractAddress : row.row.details[0].ContractAddress.substring(0, 6)}</TableCell>                      
-                      
                       <TableCell className='addressClick' align="right" onClick={() => handleOracleClick(0)}>{showFullStringOracle === 0 ? row.row.details[0].OracleAddress : row.row.details[0].OracleAddress.substring(0, 6)}</TableCell>                      
                       <TableCell align="right">{row.row.details[0].Name}</TableCell>
                       <TableCell align="right">{row.row.details[0].Acronym}</TableCell>
@@ -301,10 +301,6 @@ Row.propTypes = {
       }))
   }).isRequired,
 };
-
-
-
-
 
 export default function CollapsibleTable(props) {
 

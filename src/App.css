@@ -28,6 +28,9 @@ table {
   cursor: pointer;
 }
 
+
+
+
 .depositTable {
   width: 70px;
 }
@@ -42,4 +45,6 @@ button {
   display: inline-block;
   font-size: 16px;
   border-radius: 4%;
+  cursor: pointer;
+
 }

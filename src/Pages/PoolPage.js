@@ -8,8 +8,6 @@ import CollapsibleTable from '../Constraints/Table'
 
 
 
-
-
 const PoolJS = () => {
 	let contractAddress = '0xFf408125bf10064a4518f9aDa10b0E2124FAA807';
 
@@ -187,97 +185,7 @@ for (let button of expandButtons) {
 		}
 		return result;
 	  }
-	  
-	const depToPOS = async (event,Addr1) => {
-		event.preventDefault();
-		let tempProvider2 = new ethers.providers.Web3Provider(window.ethereum);
-		let tempSigner2 = tempProvider2.getSigner();
-		let tempContract3 = new ethers.Contract(Addr1, poolABI, tempSigner2);
-		let stringNum = (event.target[0].value).toString();
-		let deus = ethers.utils.parseEther(stringNum);
-
-		await tempContract3.depositToPOS({value:deus});
-	}
-
-	const depToNEG = async (event,Addr1) => {
-		event.preventDefault();
-		let tempProvider2 = new ethers.providers.Web3Provider(window.ethereum);
-		let tempSigner2 = tempProvider2.getSigner();
-		let tempContract3 = new ethers.Contract(Addr1, poolABI, tempSigner2);
-		let stringNum = (event.target[0].value).toString();
-		let deus = ethers.utils.parseEther(stringNum);
-
-		await tempContract3.depositToNEG({value:deus});
-	}
-
-	const approveNEG = async (event,Addr1,Addr2) => {
-		
-		event.preventDefault();
-		
-		let tempProvider2 = new ethers.providers.Web3Provider(window.ethereum);
-		let tempSigner2 = tempProvider2.getSigner();
-
-		let tempContract44 = new ethers.Contract(Addr1, claimABI, tempProvider2);
-		let tempContract3 = new ethers.Contract(Addr1, claimABI, tempSigner2);
-
-		let balance = await tempContract44.balanceOf(defaultAccount);
-
-		await tempContract3.approve(Addr2,balance);
-	}
-
-	const approvePOS = async (event,Addr1,Addr2) => {
-		
-		event.preventDefault();
-		
-		let tempProvider2 = new ethers.providers.Web3Provider(window.ethereum);
-		let tempSigner2 = tempProvider2.getSigner();
-
-		let tempContract44 = new ethers.Contract(Addr1, claimABI, tempProvider2);
-		let tempContract3 = new ethers.Contract(Addr1, claimABI, tempSigner2);
-
-		let balance = await tempContract44.balanceOf(defaultAccount);
-
-		await tempContract3.approve(Addr2,balance);
-	}
-	const callContractFunction = async (event, contractAddress, functionName) => {
-		event.preventDefault();
-		
-		let tempProvider = new ethers.providers.Web3Provider(window.ethereum);
-		let tempSigner = tempProvider.getSigner();
-		
-		let tempContract = new ethers.Contract(contractAddress, poolABI, tempSigner);
-	  
-		switch (functionName) {
-		  case 'redeemwithPOS':
-			await tempContract.redeemWithPOS();
-			break;
-		  case 'redeemwithNEG':
-			await tempContract.redeemWithNEG();
-			break;
-		  case 'withdrawNEG':
-			await tempContract.withdrawWithNEG();
-			break;
-		  case 'withdrawPOS':
-			await tempContract.withdrawWithPOS();
-			break;
-		  case 'settle':
-			await tempContract.settle();
-			break;
-		  case 'makeWithdrawable':
-			await tempContract.turnWithdrawOn();
-			break;
-		  case 'deZtruction':
-			await tempContract.turnToDust();
-			break;
-		  default:
-			throw new Error(`Invalid function name: ${functionName}`);
-		}
-	  }
-
-
-
-	  
-	return (
+		return (
 		<div>
 		<h4> Current Pools </h4>
 			<button onClick={connectWalletHandler}>{connButtonText}</button>
