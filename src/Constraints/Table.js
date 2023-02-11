@@ -190,24 +190,20 @@ function Row(props) {
           </IconButton>
         </TableCell>
 
-        <TableCell align="right">
-  {
-    GoerliAddressData.find(item => item.address === row.row.details[0].OracleAddress)?.name || '?'
-  }
-</TableCell>
+        <TableCell align='center'>{GoerliAddressData.find(item => item.address === row.row.details[0].OracleAddress)?.name || '?'}</TableCell>
 
-        <TableCell align="right">{row.row.totalBalance}</TableCell>
-        <TableCell align="right">{row.row.POSBalance}</TableCell>
-        <TableCell align="right">{row.row.NEGBalance}</TableCell>
-        <TableCell align="right">{(parseFloat(row.row.SettlementPrice) / 100000000)}</TableCell>
-        <TableCell >{new Date(row.row.SettlementDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
-        <TableCell align="right">{row.row.DecayRate}</TableCell>
-        <TableCell align="right">{row.row.MaxRatio}</TableCell>
-        <TableCell >{new Date(row.row.MaxRatioDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
-        <TableCell align="right">{row.row.PastSettlementDate}</TableCell>
-        <TableCell align="right">{row.row.Condition}</TableCell>
-        <TableCell align="right">{row.row.DiscountRate}</TableCell>
-        <TableCell align="right">{row.row.Withdraw}</TableCell>
+        <TableCell align="center">{row.row.totalBalance}</TableCell>
+        <TableCell align="center">{row.row.POSBalance}</TableCell>
+        <TableCell align="center">{row.row.NEGBalance}</TableCell>
+        <TableCell align="center">{(parseFloat(row.row.SettlementPrice) / 100000000)}</TableCell>
+        <TableCell align="center">{new Date(row.row.SettlementDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
+        <TableCell align="center">{row.row.DecayRate}</TableCell>
+        <TableCell align="center">{row.row.MaxRatio}</TableCell>
+        <TableCell align="center">{new Date(row.row.MaxRatioDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
+        <TableCell align="center">{row.row.PastSettlementDate}</TableCell>
+        <TableCell align="center">{row.row.Condition}</TableCell>
+        <TableCell align="center">{row.row.DiscountRate}</TableCell>
+        <TableCell align="center">{row.row.Withdraw}</TableCell>
 
       </TableRow>
       <TableRow>
@@ -237,12 +233,12 @@ function Row(props) {
                 <TableRow >
 
                       <TableCell className='addressClick' component="th" scope="row" onClick={() => handleContractClick(0)}>{showFullStringContract === 0 ? row.row.details[0].ContractAddress : row.row.details[0].ContractAddress.substring(0, 6)}</TableCell>                      
-                      <TableCell className='addressClick' align="right" onClick={() => handleOracleClick(0)}>{showFullStringOracle === 0 ? row.row.details[0].OracleAddress : row.row.details[0].OracleAddress.substring(0, 6)}</TableCell>                      
-                      <TableCell align="right">{row.row.details[0].Name}</TableCell>
-                      <TableCell align="right">{row.row.details[0].Acronym}</TableCell>
-                      <TableCell >{new Date(row.row.details[0].DestructionDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
-                      <TableCell className='addressClick' align="right" onClick={() => handlePOSClick(0)}>{showFullStringPOS === 0 ? row.row.details[0].POSAddress : row.row.details[0].POSAddress.substring(0, 6)}</TableCell>
-                      <TableCell className='addressClick' align="right" onClick={() => handleNEGClick(0)}>{showFullStringNEG === 0 ? row.row.details[0].NEGAddress : row.row.details[0].NEGAddress.substring(0, 6)}</TableCell>
+                      <TableCell className='addressClick' align="center" onClick={() => handleOracleClick(0)}>{showFullStringOracle === 0 ? row.row.details[0].OracleAddress : row.row.details[0].OracleAddress.substring(0, 6)}</TableCell>                      
+                      <TableCell align="center">{row.row.details[0].Name}</TableCell>
+                      <TableCell align="center">{row.row.details[0].Acronym}</TableCell>
+                      <TableCell align="center" >{new Date(row.row.details[0].DestructionDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
+                      <TableCell className='addressClick' align="center" onClick={() => handlePOSClick(0)}>{showFullStringPOS === 0 ? row.row.details[0].POSAddress : row.row.details[0].POSAddress.substring(0, 6)}</TableCell>
+                      <TableCell className='addressClick' align="center" onClick={() => handleNEGClick(0)}>{showFullStringNEG === 0 ? row.row.details[0].NEGAddress : row.row.details[0].NEGAddress.substring(0, 6)}</TableCell>
                       <TableCell> <form  onSubmit={(e) => depToPOS(e, row.row.details[0].ContractAddress.toString())}> <input className='depositTable' type="text" ></input> <button type="submit" >POS</button> </form> </TableCell>
                       <TableCell> <form  onSubmit={(e) => depToNEG(e, row.row.details[0].ContractAddress.toString())}> <input className='depositTable' type="text" ></input> <button type="submit" >NEG</button> </form> </TableCell>
 
@@ -310,19 +306,19 @@ export default function CollapsibleTable(props) {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell> Oracle Type </TableCell>
-            <TableCell>Total Balance</TableCell>
-            <TableCell align="right"> POS Balance </TableCell>
-            <TableCell align="right"> NEG Balance </TableCell>
-            <TableCell align="right"> Settlement Price $ </TableCell>
-            <TableCell align="right"> Settlement Date </TableCell>
-            <TableCell align="right"> Decay Rate </TableCell>
-            <TableCell align="right"> Max Ratio </TableCell>
-            <TableCell align="right"> Max Ratio Date </TableCell>
-            <TableCell align="right"> PastSettlement Date </TableCell>
-            <TableCell align="right"> Condition </TableCell>
-            <TableCell align="right"> Discount Rate </TableCell>
-            <TableCell align="right"> Withdraw </TableCell>
+            <TableCell align="center"> Oracle Type </TableCell>
+            <TableCell align="center">Total Balance</TableCell>
+            <TableCell align="center"> POS Balance </TableCell>
+            <TableCell align="center"> NEG Balance </TableCell>
+            <TableCell align="center"> Settlement Price $ </TableCell>
+            <TableCell align="center"> Settlement Date </TableCell>
+            <TableCell align="center"> Decay Rate </TableCell>
+            <TableCell align="center"> Max Ratio </TableCell>
+            <TableCell align="center"> Max Ratio Date </TableCell>
+            <TableCell align="center"> PastSettlement Date </TableCell>
+            <TableCell align="center"> Condition </TableCell>
+            <TableCell align="center"> Discount Rate </TableCell>
+            <TableCell align="center"> Withdraw </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
