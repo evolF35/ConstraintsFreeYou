@@ -62,8 +62,6 @@ const PoolJS = () => {
 	
     const getEvents = async () => {
 
-		console.log("gettingEvents");
-
 		const tb = await contract.queryFilter("*");
 		setTb(tb);
 
@@ -132,8 +130,6 @@ for (let button of expandButtons) {
 	}
 
   });
-
-  console.log("events done!");
 }
 
 }

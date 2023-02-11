@@ -97,7 +97,7 @@ const DeployJS = () => {
         Settlement Price
         <input id="setText2"
           type="text"
-          placeholder='2000'
+          placeholder='200000000000'
         />
       </label>
       <br />

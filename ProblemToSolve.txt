@@ -18,5 +18,4 @@ Double click to de - expand address
 Sorting and Filtering of table
     you should be able to filter by total balance, 
         settlement date, settlement price, max ratio date, 
-        ...
 
