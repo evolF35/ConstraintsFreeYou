@@ -16,12 +16,16 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {ethers} from 'ethers'
-
 import deployABI from '../ABI/Deploy.json'
 import claimABI from '../ABI/Claim.json'
 import poolABI from '../ABI/Pool.json'
 
+
+import GoerliAddressData from './GoerliChainlinkOracles.js'
+
+
 let defaultAccount;
+
 
 const depToPOS = async (event,Addr1) => {
     event.preventDefault();
@@ -185,15 +189,21 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell align="right"> ? </TableCell>
+
+        <TableCell align="right">
+  {
+    GoerliAddressData.find(item => item.address === row.row.details[0].OracleAddress)?.name || '?'
+  }
+</TableCell>
+
         <TableCell align="right">{row.row.totalBalance}</TableCell>
         <TableCell align="right">{row.row.POSBalance}</TableCell>
         <TableCell align="right">{row.row.NEGBalance}</TableCell>
         <TableCell align="right">{(parseFloat(row.row.SettlementPrice) / 100000000)}</TableCell>
-        <TableCell align="right">{new Date(row.row.SettlementDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
+        <TableCell >{new Date(row.row.SettlementDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
         <TableCell align="right">{row.row.DecayRate}</TableCell>
         <TableCell align="right">{row.row.MaxRatio}</TableCell>
-        <TableCell align="right">{new Date(row.row.MaxRatioDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
+        <TableCell >{new Date(row.row.MaxRatioDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
         <TableCell align="right">{row.row.PastSettlementDate}</TableCell>
         <TableCell align="right">{row.row.Condition}</TableCell>
         <TableCell align="right">{row.row.DiscountRate}</TableCell>
@@ -230,7 +240,7 @@ function Row(props) {
                       <TableCell className='addressClick' align="right" onClick={() => handleOracleClick(0)}>{showFullStringOracle === 0 ? row.row.details[0].OracleAddress : row.row.details[0].OracleAddress.substring(0, 6)}</TableCell>                      
                       <TableCell align="right">{row.row.details[0].Name}</TableCell>
                       <TableCell align="right">{row.row.details[0].Acronym}</TableCell>
-                      <TableCell align="right">{new Date(row.row.details[0].DestructionDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
+                      <TableCell >{new Date(row.row.details[0].DestructionDate * 1000).toLocaleString("en-US", {timeZone: "UTC",weekday: "long",year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",second: "numeric"}) + " GMT"}</TableCell>
                       <TableCell className='addressClick' align="right" onClick={() => handlePOSClick(0)}>{showFullStringPOS === 0 ? row.row.details[0].POSAddress : row.row.details[0].POSAddress.substring(0, 6)}</TableCell>
                       <TableCell className='addressClick' align="right" onClick={() => handleNEGClick(0)}>{showFullStringNEG === 0 ? row.row.details[0].NEGAddress : row.row.details[0].NEGAddress.substring(0, 6)}</TableCell>
                       <TableCell> <form  onSubmit={(e) => depToPOS(e, row.row.details[0].ContractAddress.toString())}> <input className='depositTable' type="text" ></input> <button type="submit" >POS</button> </form> </TableCell>
@@ -313,7 +323,6 @@ export default function CollapsibleTable(props) {
             <TableCell align="right"> Condition </TableCell>
             <TableCell align="right"> Discount Rate </TableCell>
             <TableCell align="right"> Withdraw </TableCell>
-
           </TableRow>
         </TableHead>
         <TableBody>
