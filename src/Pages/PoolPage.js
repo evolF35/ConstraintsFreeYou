@@ -111,7 +111,6 @@ const PoolJS = () => {
 		setTb(done);
 
 
-
 		const hiddenRows = document.querySelectorAll('.Hidden');
 		for (let row of hiddenRows) {
   			row.style.display = 'none';

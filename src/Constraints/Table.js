@@ -315,7 +315,7 @@ export default function CollapsibleTable(props) {
             <TableCell align="center"> Decay Rate </TableCell>
             <TableCell align="center"> Max Ratio </TableCell>
             <TableCell align="center"> Max Ratio Date </TableCell>
-            <TableCell align="center"> PastSettlement Date </TableCell>
+            <TableCell align="center"> Past Settlement Date </TableCell>
             <TableCell align="center"> Condition </TableCell>
             <TableCell align="center"> Discount Rate </TableCell>
             <TableCell align="center"> Withdraw </TableCell>
